@@ -21,7 +21,6 @@ const allowedOrigins = [
   "https://www.ekpanchayatekkhelchuru.in",
   "https://www.admin.ekpanchayatekkhelchuru.in",
   "http://localhost:5173",
-    "http://localhost:5174"
 ];
 
 
@@ -47,12 +46,8 @@ app.use(cors({
 
 app.use(cookieParser());
 
-
-// connect to mongo db
 connectDB();
 
-
-// midedleware to parse json bodies
 app.use(express.json());
 
 
@@ -61,27 +56,19 @@ app.get("/", (req, res) => {
     res.send("server is running successfully")
 });
 
-// route user auth
 app.use("/api/auth", authRoutes);
 
-// route for admin auth
 app.use("/api/admin", adminRoutes);
 
-// route for updates/news that creates admin only
 app.use("/api/updates", updateRoutes);
 
-// route for turnaments
 app.use("/api/turnament" , turnamentRoute)
 
-// route for school
 app.use("/api/school", schoolRoutes);
 
-// rotes for events
 app.use("/api/event", EventRoute);
 
-// route for individual user performance handling 
 app.use("/api/individual-users", individualRoutes);
-
 
 module.exports = app;
 
