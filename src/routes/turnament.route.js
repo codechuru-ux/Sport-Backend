@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createTournament, getTournaments, registerIndividual, registerSchoolTeam } = require("../controllers/turnament.controller");
+const { createTournament, getTournaments,  deleteTournament, registerIndividual, registerSchoolTeam } = require("../controllers/turnament.controller");
 const adminAuth = require("../middleware/adminAuth.middleware");
 const individualAuth = require("../middleware/individualAuth.middelware");
 const schoolAuth = require("../middleware/schoolAuth.middelware");
@@ -19,6 +19,9 @@ router.post("/register-individual",  individualAuth, registerIndividual );
 // route for school team registration in turnament
 router.post("/register-schoolteam",  schoolAuth, registerSchoolTeam );
 
+
+
+router.delete("/delete/:id", adminAuth, deleteTournament);
 
 
 
