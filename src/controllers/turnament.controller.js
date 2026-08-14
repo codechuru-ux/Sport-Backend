@@ -87,6 +87,48 @@ exports.getTournaments = async (req, res) => {
 
 
 
+exports.deleteTournament = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // ID missing
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Tournament ID is required",
+      });
+    }
+
+    // Find tournament first
+    const tournament = await Tournament.findById(id);
+
+    if (!tournament) {
+      return res.status(404).json({
+        success: false,
+        message: "Tournament not found",
+      });
+    }
+
+    // Delete tournament
+    await Tournament.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Tournament deleted successfully",
+      deletedTournamentId: id,
+    });
+  } catch (error) {
+    console.error("Delete Tournament Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete tournament",
+    });
+  }
+};
+
+
+
 
 
 exports.registerIndividual = async (req, res) => {
